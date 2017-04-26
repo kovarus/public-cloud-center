@@ -1,0 +1,58 @@
+#!/bin/bash
+# setup logging
+exec > >(tee -a /usr/local/osmosix/logs/service.log) 2>&1
+
+# Other variables
+SVCNAME=changeMe
+
+# source something
+# runs in docker container on CCO
+. /root/docker/cliqr-container-worker/utils.sh
+
+prestartFunction() {
+
+}
+preInitFunction() {
+
+}
+postInitFunction() {
+
+}
+
+preStopFunction() {
+
+}
+
+postStopFunction() {
+
+}
+
+# place holders
+
+    case $cmd in
+        prestart)
+            echo "[Pre VM Start] Pre VM Start $SVCNAME "
+            prestartFunction
+            echo "[Pre VM Start] Successfully ran Pre VM Start $SVCNAME"
+            ;;
+        preinit)
+            echo "[Pre VM Init] Pre VM Init $SVCNAME "
+            preInitFunction
+            echo "[Pre VM Init] Successfully ran Pre VM Init $SVCNAME"
+            ;;
+        postinit)
+            echo "[Post VM init] Post VM Init $SVCNAME "
+            postInitFunction
+            echo "[Post VM init] Successfully ran Post VM init $SVCNAME"
+	           ;;
+        prestop)
+            echo "[Pre VM Stop] Pre VM stop $SVCHOME"
+            preStopFunction
+            echo "[Pre VM Stop] Successfully ran Pre VM stop $SVCNAME"
+            ;;
+        poststop)
+            echo "[Post VM stop] Post VM stop $SVCHOME"
+            postStopFunction
+            echo "[Post VM stop] Successfully ran Post VM stop s$SVCNAME"
+            ;;
+    esac

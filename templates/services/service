@@ -1,0 +1,101 @@
+#!/bin/bash
+# setup logging
+exec > >(tee -a /usr/local/osmosix/logs/service.log) 2>&1
+
+# Set the base
+OSSVC_HOME=/usr/local/osmosix/service
+
+# Other variables
+SVCNAME=changeMe
+
+# source something
+. /usr/local/osmosix/service/utils/cfgutil.sh
+. /usr/local/osmosix/etc/userenv
+
+installFunction() {
+
+}
+configureFunction() {
+
+}
+deployFunction() {
+      $cfgFile = /path/to/configFile/toReplace
+  		replaceToken $cfgFile "%MW_DB_USER%" $MW_DB_USER
+      replaceToken $cfgFile "%MW_DB%" $MW_DB
+      replaceToken $cfgFile "%MW_DB_PASSWORD%" $MW_DB_PASSWORD
+  		replaceToken $cfgFile "%MW_IP_ADDRESS" $MW_IP_ADDRESS
+
+}
+
+startFunction() {
+
+}
+
+stopFunction() {
+
+}
+
+functionRestart() {
+
+}
+
+reloadFunction() {
+
+}
+
+upgradeFunction() {
+
+}
+
+cleanUpFunction() {
+
+}
+# place holders
+
+    case $cmd in
+        install)
+            echo "[INSTALL] Installing $SVCNAME "
+            installFunction
+            echo "[INSTALL] Successfully installed $SVCNAME"
+            ;;
+        configure)
+            echo "[CONFIGURE] Configuring $SVCNAME "
+            configureFunction
+            echo "[CONFIGURE] Successfully configured $SVCNAME"
+            ;;
+        deploy)
+            echo "[DEPLOY] Deploying $SVCNAME "
+            deployFunction
+            echo "[DEPLOY] Successfully configured $SVCNAME"
+	           ;;
+        start)
+            echo "[START] Starting $SVCHOME configuration"
+            startFunction
+            echo "[START] Successfully started $SVCNAME"
+            ;;
+        stop)
+            echo "[STOP] Stopping $SVCHOME configuration"
+            stopFunction
+            echo "[STOP] Successfully stopped $SVCNAME"
+            ;;
+        restart)
+            echo "[RESTART] Restart $SVCHOME configuration"
+            restartFunction
+            echo "[RESTART] Successfully restarted $SVCNAME"
+            ;;
+        reload)
+            echo "[RELOAD] Reloading $SVCHOME configuration"
+            reloadFunction
+            echo "[RELOAD] Successfully reloaded $SVCNAME"
+            ;;
+        upgrade)
+            echo "[UPGRADE] Upgrading $SVCHOME configuration"
+            upgradeFunction
+            echo "[UPGRADE] Successfully upgraded $SVCNAME"
+            ;;
+        cleanup)
+            echo "[CLEAN UP] Cleaning up $SVCHOME configuration"
+            cleanUpFunction
+            echo "[CLEAN UP] Successfully cleaned up $SVCNAME"
+            ;;
+    esac
