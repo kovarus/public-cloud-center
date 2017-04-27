@@ -15,8 +15,11 @@ args = parser.parse_args()
 parser.parse_args()
 # assign to usable variables
 ipaddress = args.IPAddress
+print ipaddress
 hostname = args.Hostname
+print hostname
 dnszone = args.DnsZone
+print dnszone
 winrmhost = args.WinRmHost
 winrmuser = args.Username
 winrmpassword = args.Password
@@ -25,7 +28,6 @@ Add dns request
 May need to kinit the user before running this script
 """
 s = winrm.Session(winrmhost,transport='ntlm', auth=(winrmuser,winrmpassword))
-# s = winrm.Session(winrmhost,transport='kerberos', auth=(winrmuser,winrmpassword))
 # make the request
 r = s.run_ps('Add-DnsServerResourceRecordA -IPv4Address ' + ipaddress + ' -Name ' + hostname + ' -ZoneName ' +  dnszone + ' -CreatePtr')
 print "This is the standard output"
