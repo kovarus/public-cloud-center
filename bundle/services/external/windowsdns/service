@@ -3,29 +3,29 @@
 exec > >(tee -a /usr/local/osmosix/logs/service.log) 2>&1
 
 # Other variables
-SVCNAME=changeMe
-cmd=$1
+SVCNAME=windowsdns
 
 # source something
 # runs in docker container on CCO
 . /root/docker/cliqr-container-worker/utils.sh
 
 updateFunction() {
-
+sleep 10000
 }
 startFunction() {
+sleep 10000
 
 }
 stopFunction() {
-
+sleep 10000
 }
 
 suspendFunction() {
-
+sleep 10000
 }
 
 resumeFunction() {
-
+sleep 10000
 }
 
 # place holders

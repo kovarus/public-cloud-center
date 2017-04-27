@@ -1,31 +1,48 @@
 #!/bin/bash
-# setup logging
-exec > >(tee -a /usr/local/osmosix/logs/service.log) 2>&1
 
 # Other variables
-SVCNAME=changeMe
-cmd=$1
+SVCNAME=windowsdns
 
 # source something
 # runs in docker container on CCO
-. /root/docker/cliqr-container-worker/utils.sh
+# . /root/docker/cliqr-container-worker/utils.sh
+# add local vars
+cmd=$1
 
 updateFunction() {
-
+sleep 10000
 }
+
 startFunction() {
+# install packages
+yum install -y epel-release
+yum install -y python-pip
+pip install pywinrm
+pip install --upgrade pip
+curl -O http://hq-repo.kpsc.io/kpscservices/external/windowsdns/addDnsRecord.py
+# set some temp variables
+hostname="test-"$currentTierJobId
+ipaddress="10.16.0.123"
+dnszone="kpsc.io"
+winrmhost="hq-dc1.kpsc.io"
+winrmuser="svc.winrm@kpsc.io"
+winrmpassword="!Passw0rd"
+python ./addDnsRecord.py $hostname $ipaddress $dnszone $winrmhost $winrmuser $winrmpassword
 
+
+sleep 10000
 }
-stopFunction() {
 
+stopFunction() {
+sleep 10000
 }
 
 suspendFunction() {
-
+sleep 10000
 }
 
 resumeFunction() {
-
+sleep 10000
 }
 
 # place holders
