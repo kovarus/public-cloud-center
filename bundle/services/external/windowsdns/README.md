@@ -26,7 +26,7 @@ Automatically derived in script
 
 Winrm was setup as basic authentication and allow the *CCO as an allowed host*.
 
-![General workflow](images/ExternalWindowsDnsService.png){:height="483px" width="523px"}
+<img src="images/ExternalWindowsDnsService.png" alt="General Flow" width="523px" height="483">
 
 ## Contributors
 
