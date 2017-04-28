@@ -7,16 +7,26 @@ SVCNAME=windowsdns
 # runs in docker container on CCO
 . /utils.sh
 # add local vars
+# used for case below
 cmd=$1
+
+downloadService(){
+runScript="service2.sh"
+scriptFileLocation="/opt/remoteFiles/cliqr_local_file"
+curlVar="$customerRepositoryPath/$runScript"
+curl -O $curlVar
+chmod +x $scriptFileLocation/$runScript
+# $scriptFileLocation/$runScript 
+}
 
 updateFunction() {
 sleep 100
 }
+
 getVariables() {
 tierName=$cliqrAppTierName
- 
 ipParam=CliqrTier_${tierName}_PUBLIC_IP
-echo ${!ipParam}
+# echo ${!ipParam}
 }
 
 installFunction(){
@@ -31,19 +41,13 @@ startFunction() {
 # Download script from repo
 # curlUrl="$customerRepositoryPath/addDnsRecord.py"
 # curl -O $curlUrl
+print_log "Downloading addDnsRecord.py"
 curl -O http://hq-repo.kpsc.io/kpscservices/external/windowsdns/addDnsRecord.py
-# set some temp variables
-# hostname="test-"$currentTierJobId
-# ipaddress="10.16.0.123"
-# dnszone="corp.local"
-# winrmhost="winrm.corp.local"
-# winrmuser="svc.winrm@corp.local"
-# winrmpassword="changeMe"
 print_log "Executing addDnsRecord.py"
 
-echo "CloudCenter_EXTERNAL_SERVICE_LOG_MSG_START"
-echo "Adding DNS record. "
-echo "CloudCenter_EXTERNAL_SERVICE_LOG_MSG_END"
+print_log "CloudCenter_EXTERNAL_SERVICE_LOG_MSG_START"
+print_log "Adding DNS record. "
+print_log "CloudCenter_EXTERNAL_SERVICE_LOG_MSG_END"
 python ./addDnsRecord.py $hostname ${!ipParam} $dnszone $winrmhost $winrmuser $winrmpassword
 
 print_log "Done adding record."
@@ -55,18 +59,9 @@ sleep 480
 stopFunction() {
 # download script from repo
 curl -O http://hq-repo.kpsc.io/kpscservices/external/windowsdns/removeDnsRecord.py
-# curlUrl="$customerRepositoryPath/removeDnsRecord.py"
-# curl -O $curlUrl
-
-# hostname="test-"$currentTierJobId
-# ipaddress="10.16.0.123"
-# dnszone="corp.local"
-# winrmhost="winrm.corp.local"
-# winrmuser="svc.winrm@corp.local"
-# winrmpassword="changeMe"
-echo "CloudCenter_EXTERNAL_SERVICE_LOG_MSG_START"
-echo "Removing DNS record. "
-echo "CloudCenter_EXTERNAL_SERVICE_LOG_MSG_END"
+print_log "CloudCenter_EXTERNAL_SERVICE_LOG_MSG_START"
+print_log "Removing DNS record. "
+print_log "CloudCenter_EXTERNAL_SERVICE_LOG_MSG_END"
 python ./removeDnsRecord.py $cliqrNodeHostname ${!ipParam} $dnszone $winrmhost $winrmuser $winrmpassword
 
 print_log "Done removing record."
@@ -93,6 +88,7 @@ sleep 100
             ;;
         start)
             echo "[START] Starting $SVCNAME "
+	    downloadService
 	    getVariables
 	    installFunction
             startFunction
@@ -100,6 +96,7 @@ sleep 100
             ;;
         stop)
             echo "[STOP] Stopping $SVCNAME "
+	    downloadService
 	    getVariables
 	    installFunction
             stopFunction
