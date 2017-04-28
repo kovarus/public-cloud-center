@@ -26,7 +26,7 @@ Automatically derived in script
 
 Winrm was setup as basic authentication and allow the *CCO as an allowed host*.
 
-[logo]: https://github.com/kovarus/public-cloud-center/blob/master/bundle/services/external/windowsdns/ExternalWindowsDnsService.png "General workflow"
+[logo]: (https://github.com/kovarus/public-cloud-center/blob/master/bundle/services/external/windowsdns/ExternalWindowsDnsService.png) "General workflow"
 
 ## Contributors
 
